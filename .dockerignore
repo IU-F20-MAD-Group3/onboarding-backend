@@ -1,0 +1,22 @@
+## Docker-related files ##
+.dockerignore
+docker-compose*.yml
+docker/Dockerfile
+
+## Python cache ##
+**/__pycache__/
+
+## VIM ##
+**/*.sw[op]
+**/.ropeproject/
+**/.mypy_cache/
+
+## Git ##
+.git/
+.gitignore
+
+## JetBrains IDE ##
+.idea/
+
+## Env files ##
+.env*
