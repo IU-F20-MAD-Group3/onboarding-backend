@@ -1,0 +1,20 @@
+## VIM ##
+.ropeproject/
+*.sw[op]
+
+## Python ##
+__pycache__/
+*.py[cod]
+
+## Configuration files ##
+.env
+
+## JetBrains IDE ##
+.idea/
+
+## Docker ##
+/docker-compose.override.yml
+
+## Project data ##
+/data/*
+!/data/.gitkeep

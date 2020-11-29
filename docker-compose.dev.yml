@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  django:
+    command: "devserver"
+    user: "$DOCKER_USER"
+    ports:
+      - "${DJANGO_DEV_HOST:-127.0.0.1}:8000:8000"
+    volumes:
+      - "./src:/app"
+      - "./data:/data"

@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: "${IMAGE:?IMAGE is missing}:${TAG:?TAG is missing}"
+    environment:
+      DJANGO_APP_NAME: onboarding
+      DJANGO_DEBUG: ${DJANGO_DEBUG:?DJANGO_DEBUG is missing}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?DJANGO_SECRET_KEY is missing}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:?DJANGO_ALLOWED_HOSTS is missing}
+      DJANGO_DATABASE_NAME: "pgdb"
+      DJANGO_DATABASE_HOST: "postgres"
+      DJANGO_DATABASE_PORT: "5432"
+      DJANGO_DATABASE_USER: "pguser"
+      DJANGO_DATABASE_PASSWORD: "pgpassword"
+      UWSGI_PROCESSES: ${UWSGI_PROCESSES:?UWSGI_PROCESSES is missing}
+      UWSGI_THREADS: ${UWSGI_THREADS:?UWSGI_THREADS is missing}
+    volumes:
+      - django-data:/data
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:13
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_DB: "pgdb"
+      POSTGRES_USER: "pguser"
+      POSTGRES_PASSWORD: "pgpassword"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: "unless-stopped"
+
+volumes:
+  postgres-data:
+  django-data:
