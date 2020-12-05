@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Exit on any error.
+set -e
+
+GENERATION_SCRIPT_PATH="schema/generate.sh"
+IMAGES_DIR_PATH="images/"
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Generate schema images.
+sh "$GENERATION_SCRIPT_PATH"
+echo ""
+
+# Add generated images to current commit.
+git add "$IMAGES_DIR_PATH"
