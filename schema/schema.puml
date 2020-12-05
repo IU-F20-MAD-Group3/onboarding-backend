@@ -1,0 +1,78 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "Organization" as org {
+  id : integer
+  --
+  name : text
+}
+
+entity "Checklist" as che {
+  id : integer
+  --
+  organization_id : integer
+  name : text
+  description : text
+}
+
+entity "Task" as tas {
+  id : integer
+  --
+  checklist_id : integer
+  name : text
+  description : text
+}
+
+entity "User" as use {
+  id : integer
+  --
+}
+
+entity "Organization Member" as mem {
+  id : integer
+  --
+  organization_id : integer
+}
+
+entity "Organization Admin" as adm {
+  id : integer
+}
+
+entity "Employee" as emp {
+  id : integer
+}
+
+entity "Employee Joined Checklist" as e_c {
+  id : integer
+  --
+  employee_id : integer
+  checklist_id : integer
+}
+
+entity "Employee Executing Task" as e_t {
+  id : integer
+  --
+  employee_id : integer
+  task_id : integer
+  finished : boolean
+}
+
+org ||..o{ che
+che ||..o{ tas
+
+use .. mem
+mem .. adm
+mem .. emp
+
+org ||..o{ mem
+emp ||..o{ e_c
+che ||..o{ e_c
+emp ||..o{ e_t
+tas ||..o{ e_t
+
+@enduml
