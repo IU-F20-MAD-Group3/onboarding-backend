@@ -59,7 +59,7 @@ entity "Employee Executing Task" as e_t {
   --
   employee_id : integer
   task_id : integer
-  finished : boolean
+  status : text
 }
 
 org ||..o{ che
