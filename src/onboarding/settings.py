@@ -29,12 +29,17 @@ ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    # Built-in apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd-party apps
+    'rest_framework.authtoken',
+    # Project apps
+    'onboarding',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +71,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'onboarding.wsgi.application'
+
+
+# Django rest framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 
 # Logging
