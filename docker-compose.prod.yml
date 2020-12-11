@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  django:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.onboarding.rule=Host(`${SERVER_HOST:?SERVER_HOST is missing}`)"
+      - "traefik.http.routers.onboarding.entrypoints=websecure"
+      - "traefik.http.routers.onboarding.tls.certresolver=letsencrypt"
+      - "traefik.http.services.onboarding.loadbalancer.server.port=8000"
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external:
+      name: public
