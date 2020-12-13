@@ -94,3 +94,14 @@ class TaskExecution(models.Model):
         choices=STATUS_CHOICES,
         default=STATUS_PENDING,
     )
+
+
+class News(models.Model):
+    title = models.CharField(max_length=128)
+    text = models.TextField()
+
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.CASCADE,
+        related_name='news',
+    )
