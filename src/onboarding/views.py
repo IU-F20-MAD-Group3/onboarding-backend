@@ -1,4 +1,5 @@
 from rest_framework import viewsets, mixins
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Checklist
 from .serializers import ChecklistSerializer
@@ -16,3 +17,5 @@ class ChecklistViewSet(
     """
     queryset = Checklist.objects.all()
     serializer_class = ChecklistSerializer
+
+    permission_classes = [IsAuthenticated]
