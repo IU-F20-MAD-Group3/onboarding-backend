@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Checklist
 from .serializers import ChecklistSerializer
+from .permissions import IsMember
 
 
 class ChecklistViewSet(
@@ -18,4 +19,11 @@ class ChecklistViewSet(
     queryset = Checklist.objects.all()
     serializer_class = ChecklistSerializer
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsMember]
+
+    def get_queryset(self):
+        """Get a queryset of checklists from a user's organization.
+        """
+        user = self.request.user
+        organization = user.member.organization
+        return organization.checklists.all()
