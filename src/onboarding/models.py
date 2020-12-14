@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 class Organization(models.Model):
     name = models.CharField(max_length=256)
 
+    def __str__(self):
+        return self.name
+
 
 class Member(models.Model):
     user = models.OneToOneField(
@@ -18,6 +21,9 @@ class Member(models.Model):
         on_delete=models.CASCADE,
         related_name='members',
     )
+
+    def __str__(self):
+        return str(self.user)
 
 
 class Checklist(models.Model):
@@ -36,6 +42,9 @@ class Checklist(models.Model):
         related_name='checklists',
     )
 
+    def __str__(self):
+        return self.name
+
 
 class ChecklistParticipation(models.Model):
     checklist = models.ForeignKey(
@@ -49,6 +58,9 @@ class ChecklistParticipation(models.Model):
         on_delete=models.CASCADE,
         related_name='checklist_participations',
     )
+
+    def __str__(self):
+        return f"{self.member} in {self.checklist}"
 
 
 class Task(models.Model):
@@ -66,6 +78,9 @@ class Task(models.Model):
         through='TaskExecution',
         related_name='tasks',
     )
+
+    def __str__(self):
+        return self.name
 
 
 class TaskExecution(models.Model):
@@ -95,6 +110,9 @@ class TaskExecution(models.Model):
         default=STATUS_PENDING,
     )
 
+    def __str__(self):
+        return f"{self.member} in {self.task}"
+
 
 class News(models.Model):
     title = models.CharField(max_length=128)
@@ -105,3 +123,6 @@ class News(models.Model):
         on_delete=models.CASCADE,
         related_name='news',
     )
+
+    def __str__(self):
+        return self.title
