@@ -97,11 +97,14 @@ class TaskExecution(models.Model):
     )
 
     STATUS_PENDING = 'pndg'
+    STATUS_PENDING_DISPLAY = 'pending'
+
     STATUS_FINISHED = 'fnsh'
+    STATUS_FINISHED_DISPLAY = 'finished'
 
     STATUS_CHOICES = (
-        (STATUS_PENDING, 'Pending'),
-        (STATUS_FINISHED, 'Finished'),
+        (STATUS_PENDING, STATUS_PENDING_DISPLAY),
+        (STATUS_FINISHED, STATUS_FINISHED_DISPLAY),
     )
 
     status = models.CharField(

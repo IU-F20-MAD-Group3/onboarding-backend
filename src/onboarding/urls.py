@@ -4,10 +4,11 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken import views
 
-from .views import ChecklistViewSet
+from .views import ChecklistViewSet, TaskViewSet
 
 router = routers.SimpleRouter()
-router.register('checklists', ChecklistViewSet)
+router.register('checklists', ChecklistViewSet, basename='checklist')
+router.register('tasks', TaskViewSet, basename='task')
 
 api_urlpatterns = [
     path('tokens/', views.obtain_auth_token),
