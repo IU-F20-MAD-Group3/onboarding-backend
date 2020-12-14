@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Task, TaskExecution
-from .serializers import ChecklistSerializer, TaskSerializer
+from .serializers import ChecklistSerializer, TaskSerializer, NewsSerializer
 from .permissions import IsMember
 
 
@@ -24,7 +24,7 @@ class ChecklistViewSet(
     permission_classes = [IsAuthenticated, IsMember]
 
     def get_queryset(self):
-        """Get a queryset of checklists from a user's organization.
+        """Returns a queryset of checklists from the user's organization.
         """
         user = self.request.user
         organization = user.member.organization
@@ -51,7 +51,7 @@ class TaskViewSet(
     permission_classes = [IsAuthenticated, IsMember]
 
     def get_queryset(self):
-        """Get a queryset of tasks from a user's organization.
+        """Returns a queryset of tasks from the user's organization.
         """
         user = self.request.user
         organization = user.member.organization
@@ -72,3 +72,24 @@ class TaskViewSet(
         )
 
         return Response(status=HTTPStatus.NO_CONTENT)
+
+
+class NewsViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    viewsets.GenericViewSet,
+):
+    """A viewset for viewing news instances.
+
+    Provides `list` and `retrieve` actions.
+
+    """
+    serializer_class = NewsSerializer
+    permission_classes = [IsAuthenticated, IsMember]
+
+    def get_queryset(self):
+        """Returns a queryset of news from the user's organization.
+        """
+        user = self.request.user
+        organization = user.member.organization
+        return organization.news.all()

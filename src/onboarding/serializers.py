@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Checklist, Task, TaskExecution
+from .models import Checklist, Task, TaskExecution, News
 
 
 class ChecklistSerializer(serializers.ModelSerializer):
@@ -28,4 +28,11 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ('id', 'name', 'description', 'status')
+        read_only_fields = fields
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = ('id', 'title', 'text')
         read_only_fields = fields
